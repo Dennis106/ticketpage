@@ -8,7 +8,7 @@ export default function Ticket(props) {
             <h2>{ticket.title}</h2>
             <h4>{ticket.first_name + ' ' + ticket.last_name}</h4>
             <div>
-                <img src={ticket.url} className='float-start me-2 w-25' />
+                <img src={ticket.url} className='float-start me-2 w-25' alt='' />
                 <p>{ticket.content}</p>
             </div>
         </div>

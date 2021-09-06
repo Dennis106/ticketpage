@@ -40,8 +40,8 @@ export default function TicketList() {
                         <List>
                             {
                                 tickets.map(item => (
-                                    <React.Fragment>
-                                        <Ticket key={item.id} data={item} handleSelect={handleSelect} selected={selectedTicket === item} />
+                                    <React.Fragment key={item.id} >
+                                        <Ticket data={item} handleSelect={handleSelect} selected={selectedTicket === item} />
                                         <Divider variant="inset" component="li" />
                                     </React.Fragment>
                                 ))
