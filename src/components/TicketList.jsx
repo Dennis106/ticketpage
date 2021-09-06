@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchBox from './SearchBox';
-import { Grid, List } from '@material-ui/core';
+import { Grid, List, Divider } from '@material-ui/core';
 import Ticket from './Ticket'
 import TicketContent from './TicketContent'
 
@@ -17,7 +17,7 @@ export default function TicketList() {
             .then(response => response.json())
             .then(result => {
                 setTickets(result);
-                if(result.length > 0) {
+                if (result.length > 0) {
                     setSelectedTicket(result[0]);
                 } else {
                     setSelectedTicket(null);
@@ -40,7 +40,10 @@ export default function TicketList() {
                         <List>
                             {
                                 tickets.map(item => (
-                                    <Ticket key={item.id} data={item} handleSelect={handleSelect} selected={selectedTicket === item} />
+                                    <React.Fragment>
+                                        <Ticket key={item.id} data={item} handleSelect={handleSelect} selected={selectedTicket === item} />
+                                        <Divider variant="inset" component="li" />
+                                    </React.Fragment>
                                 ))
                             }
                         </List>
