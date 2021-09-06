@@ -37,7 +37,7 @@ export default function TicketList() {
                 </Grid>
                 <Grid item xs={4}>
                     <Paper className='overflow-auto' style={{ height: 'calc( 100vh - 144px )' }}>
-                        <List>
+                        <List className='py-0'>
                             {
                                 tickets.map((item, index) => (
                                     <React.Fragment key={item.id} >
