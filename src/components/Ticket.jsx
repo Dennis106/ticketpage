@@ -20,9 +20,9 @@ export default function Ticket(props) {
                 </Avatar>
             </ListItemAvatar>
             <ListItemText
-                primary={ticket.first_name + ' ' + ticket.last_name}
+                primary={ticket.title}
                 secondary={
-                    ticket.title
+                    ticket.first_name + ' ' + ticket.last_name
                 }
             />
             <Divider />
