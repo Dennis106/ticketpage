@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchBox from './SearchBox';
-import { Grid, List, Divider } from '@material-ui/core';
+import { Grid, List, Divider, Paper } from '@material-ui/core';
 import Ticket from './Ticket'
 import TicketContent from './TicketContent'
 
@@ -36,23 +36,23 @@ export default function TicketList() {
                     <SearchBox handleSearch={setSearchKey} />
                 </Grid>
                 <Grid item xs={4}>
-                    <div className='border border-dark rounded overflow-auto' style={{ height: 'calc( 100vh - 144px )' }}>
+                    <Paper className='overflow-auto' style={{ height: 'calc( 100vh - 144px )' }}>
                         <List>
                             {
-                                tickets.map(item => (
+                                tickets.map((item, index) => (
                                     <React.Fragment key={item.id} >
                                         <Ticket data={item} handleSelect={handleSelect} selected={selectedTicket === item} />
-                                        <Divider variant="inset" component="li" />
+                                        {(index !== tickets.length - 1) ? <Divider variant='inset' /> : ''}
                                     </React.Fragment>
                                 ))
                             }
                         </List>
-                    </div>
+                    </Paper>
                 </Grid>
                 <Grid item xs={8}>
-                    <div className='border border-dark overflow-auto' style={{ height: 'calc( 100vh - 144px )' }}>
+                    <Paper className='overflow-auto' style={{ height: 'calc( 100vh - 144px )' }}>
                         {selectedTicket ? <TicketContent data={selectedTicket} /> : ''}
-                    </div>
+                        </Paper>
                 </Grid>
             </Grid>
         </div>
