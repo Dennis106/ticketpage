@@ -5,11 +5,10 @@ import SearchBox from './SearchBox';
 import { Grid, List, Divider, Paper } from '@material-ui/core';
 import Ticket from './Ticket'
 import TicketContent from './TicketContent'
-import { getTickets } from '../services/action';
+import { getTickets, setCurrentTicket } from '../services/action';
 
 function TicketList(props) {
     const [searchKey, setSearchKey] = useState('');
-    const [selectedTicket, setSelectedTicket] = useState(null);
 
     useEffect(() => {
         props.ticktActions.getTickets({
@@ -18,10 +17,10 @@ function TicketList(props) {
     }, [searchKey])
 
     const handleSelect = (ticket) => {
-        setSelectedTicket(ticket);
+        props.ticktActions.setCurrentTicket(ticket);
     }
-    
-    const { tickets } = props.ticketData;
+
+    const { tickets, currentTicket } = props.ticketData;
     console.log(props)
     return (
         <div className='px-4 py-4'>
@@ -35,7 +34,7 @@ function TicketList(props) {
                             {
                                 tickets.map((item, index) => (
                                     <React.Fragment key={item.id} >
-                                        <Ticket data={item} handleSelect={handleSelect} selected={selectedTicket === item} />
+                                        <Ticket data={item} handleSelect={handleSelect} selected={currentTicket === item} />
                                         {(index !== tickets.length - 1) ? <Divider variant='inset' /> : ''}
                                     </React.Fragment>
                                 ))
@@ -45,7 +44,7 @@ function TicketList(props) {
                 </Grid>
                 <Grid item xs={8}>
                     <Paper className='overflow-auto' style={{ height: 'calc( 100vh - 144px )' }}>
-                        {selectedTicket ? <TicketContent data={selectedTicket} /> : ''}
+                        {currentTicket ? <TicketContent data={currentTicket} /> : ''}
                         </Paper>
                 </Grid>
             </Grid>
@@ -60,6 +59,6 @@ export default connect(
         }
       }),
     dispatch => ({
-      ticktActions: bindActionCreators({ getTickets }, dispatch)
+      ticktActions: bindActionCreators({ getTickets, setCurrentTicket }, dispatch)
     })
   )(TicketList);
