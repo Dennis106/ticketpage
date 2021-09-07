@@ -1,34 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import SearchBox from './SearchBox';
 import { Grid, List, Divider, Paper } from '@material-ui/core';
 import Ticket from './Ticket'
 import TicketContent from './TicketContent'
+import { getTickets } from '../services/action';
 
-export default function TicketList() {
-    const [tickets, setTickets] = useState([]);
+function TicketList(props) {
     const [searchKey, setSearchKey] = useState('');
     const [selectedTicket, setSelectedTicket] = useState(null);
 
     useEffect(() => {
-        fetch("https://test.com/ticketlist", {
-            method: 'POST',
-            body: JSON.stringify({ search: searchKey })
+        props.ticktActions.getTickets({
+            search: searchKey
         })
-            .then(response => response.json())
-            .then(result => {
-                setTickets(result);
-                if (result.length > 0) {
-                    setSelectedTicket(result[0]);
-                } else {
-                    setSelectedTicket(null);
-                }
-            })
     }, [searchKey])
 
     const handleSelect = (ticket) => {
         setSelectedTicket(ticket);
     }
-
+    
+    const { tickets } = props.ticketData;
+    console.log(props)
     return (
         <div className='px-4 py-4'>
             <Grid container spacing={3}>
@@ -58,3 +52,14 @@ export default function TicketList() {
         </div>
     );
 }
+
+export default connect(
+    state => ({
+        ticketData: {
+          ...state
+        }
+      }),
+    dispatch => ({
+      ticktActions: bindActionCreators({ getTickets }, dispatch)
+    })
+  )(TicketList);
