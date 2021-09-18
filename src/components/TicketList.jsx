@@ -9,7 +9,7 @@ import { getTickets, setCurrentTicket } from '../services/action';
 
 function TicketList(props) {
     const [searchKey, setSearchKey] = useState('');
-
+    
     useEffect(() => {
         props.ticktActions.getTickets({
             search: searchKey
