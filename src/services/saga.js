@@ -12,6 +12,7 @@ import * as ticketApi from './api';
 export function* ticketSubscriber() {
   yield all([takeEvery('GET_TICKETS', getTickets)]);
 }
+
 export function* getTickets({ payload: { params } }) {
     try {
         const tickets = yield call(ticketApi.getTickets, params);
